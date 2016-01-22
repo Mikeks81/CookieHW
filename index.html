@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cookie Confection</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body onload="pageLoad();">
+<h1>Welcome, Eat Cookies</h1>
+<p>Select a flavor: <select id="cookies">
+	<option value="chocolateChip"> Chocolate Chip </option>
+	<option value="oreos">Oreo's</option>
+	<option value="butterCrunch">Butter Crunch</option>
+</select></p>
+
+<form>
+	<p>Quantity: <input id="quantity" type="number" name="quanity" min="1" max="100"></p>
+</form>
+<button onclick="eatMe()"id="eat_me">Eat Me!</button>
+
+<h2>Cookie Tally</h2>
+<p>Chcolate Chip: <span class="quantity" id="ccq">0</span></p>
+<p>Oreo's: <span class="quantity" id="oq">0</span></p>
+<p>Butter Crunch: <span class="quantity" id="bcq">0</span></p>
+
+<a href="#" onclick="clearC()" id="clear">I didn't eat all those!</a>
+
+
+
+<script src="/cookies.js"></script>
+
+<script>
+
+	function clearC(){
+		Cookies.expire("chocolateChip").get("chocolateChip");
+		Cookies.expire("oreos").get("oreos");
+		Cookies.expire("butterCrunch").get("butterCrunch");
+		location.reload();
+
+	}
+
+	function pageLoad(){
+		
+		if (Cookies.get("chocolateChip") != undefined )	{
+			document.getElementById("ccq").innerHTML = Cookies.get("chocolateChip");
+		}
+		// else{
+		// 	document.getElementById("ccq").innerHTML = 0
+		// }
+		if (Cookies.get("oreos") != undefined){
+			document.getElementById("oq").innerHTML = Cookies.get("oreos");
+		} 
+
+		if (Cookies.get("butterCrunch") != undefined ){
+			document.getElementById("bcq").innerHTML = Cookies.get("butterCrunch");
+		} 
+	};
+
+	function eatMe(){
+		var cookie = document.getElementById("cookies").value; // sets cookie key
+		var quantity = document.getElementById("quantity").value; // sets cooker value
+		console.log(quantity)
+
+		if (Cookies.get(cookie) != undefined){
+		var number = Cookies.get(cookie);
+		console.log(number)
+		// var quantity = quantity + number;
+		}
+		else {
+			var number = 0;
+		}
+
+		var sum = (+quantity) + (+number);
+		console.log(sum);
+
+		Cookies.set(cookie,sum);
+		pageLoad();
+	};
+
+	
+
+	
+</script>
+
+
+</body>
+</html>
